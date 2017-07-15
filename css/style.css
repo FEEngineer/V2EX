@@ -1,0 +1,82 @@
+/** general css style */
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+input:focus {
+    outline: none;
+}
+
+.flex-center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/** header css style */
+header {
+    height: 50px;
+    width: 100%;
+    background-color: #ffa;
+}
+
+.header-v2ex {
+    font-size: 28px;
+    margin-left: 15%;
+    font-weight: bold;
+    height: 100%;
+}
+
+.header-search-form {
+    margin-left: 28px;
+    height: 100%;
+}
+
+.header-search-form input {
+    height: 50%;
+    width: 200px;
+    border-radius: 15px;
+}
+
+.header-text-menu {
+    height: 100%;
+    margin-right: 15%;
+}
+
+.header-text-menu span {
+    width: 50px;
+}
+
+.articlespace {
+    background-color: #eee;
+    width: 100%;
+    height: 1000px;
+}
+
+.leftarticle {
+    height: 90%;
+    width: 50%;
+    background-color: white;
+    margin-left: 10%;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.rightarticle {
+    height: 90%;
+    width: 20%;
+    background-color: white;
+    margin-right: 18%;
+    margin-top: 20px;
+    border-radius: 5px;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "v2ex-crawler",
+  "version": "0.0.1",
+  "description": "A simple webcrawler written in JavaScript, aim to crawl pages of v2ex",
+  "main": "crawler.js",
+  "author": "Kawhi",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.2",
+    "url-parse": "1.1.9",
+    "request": "2.81.0"
+  }
+}

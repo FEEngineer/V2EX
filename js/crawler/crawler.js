@@ -12,7 +12,8 @@ request(pageToVisit, function(error, response, body) {
    console.log("Status code: " + response.statusCode);
    if(response.statusCode === 200) {
      // Parse the document body
-     var $ = cheerio.load(body);
-     console.log("Page title:  " + $('title').text());
+     const $ = cheerio.load(body);
+
+    
    }
 });

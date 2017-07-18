@@ -4,16 +4,17 @@ var URL = require('url-parse');
 
 var pageToVisit = "https://www.v2ex.com/";
 console.log("Visiting page " + pageToVisit);
-request(pageToVisit, function(error, response, body) {
-   if(error) {
-     console.log("Error: " + error);
-   }
-   // Check status code (200 is HTTP OK)
-   console.log("Status code: " + response.statusCode);
-   if(response.statusCode === 200) {
-     // Parse the document body
-     const $ = cheerio.load(body);
+request(pageToVisit, function (error, response, body) {
+  if (error) {
+    console.log("Error: " + error);
+  }
+  // Check status code (200 is HTTP OK)
+  console.log("Status code: " + response.statusCode);
+  if (response.statusCode === 200) {
+    // Parse the document body
+    const $ = cheerio.load(body);
 
-    
-   }
+    memLink = $('.cell .item table tbody td:nth-of-type(1) a').attr('href');
+    console.log(memLink);
+  }
 });

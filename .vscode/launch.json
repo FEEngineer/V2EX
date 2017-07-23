@@ -4,7 +4,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "LaunchTest",
+            "program": "${workspaceRoot}/js/crawler/test"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "LaunchCrawler",
             "program": "${workspaceRoot}/js/crawler/crawler"
         },
         {

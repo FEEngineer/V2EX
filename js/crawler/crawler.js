@@ -52,12 +52,55 @@ class DataCollector {
 		this.itemList.push(item);
 	}
 
-	saveToDB() {
-		console.log('memberMap size ' + this.memberMap.size + ' itemList size ' + this.itemList.length);
-		console.log('save to mongodb');
+	constructUserMapValueList() {
+		let userList = [];
+
+		for (let user of this.memberMap.values()) {
+			userList.push(user);
+		}
+
+		return userList;
+	}
+
+	saveToUserCollection() {
+		console.log('save user info to mongodb');
+
+		let userList = this.constructUserMapValueList();
+		console.log('user list size ' + userList.length + ", will be inserted into db v2ex, collection user");
 
 		co(function* () {
-			
+			let db = yield mongoClient.connect('mongodb://localhost:27017/v2ex');
+			console.log("Connect correctly to server");
+
+			for (let user of userList) {
+				let insertRes = yield db.collection('user').insert(user);
+				assert.equal(1, insertRes.insertedCount);
+			}
+
+			db.close();
+		}).catch(function (err) {
+			console.log(err.stack);
+		});
+	}
+
+	saveToItemCollection() {
+		console.log('save item list to mongodb');
+		console.log('item list size ' + this.itemList.size + ' itemList size ' + this.itemList.length);
+
+		let itemList = this.itemList;
+
+		co(function* () {
+			let db = yield mongoClient.connect('mongodb://localhost:27017/v2ex');
+			console.log("Connect correctly to server");
+
+			for (let item in itemList) {
+				let insertRes = yield db.collection('item').insert(itemList[item]);
+				assert.equal(1, insertRes.insertedCount);
+			}
+
+			db.close();
+		}).catch(function (err) {
+			console.log(err.stack);
 		});
 	}
 }
@@ -82,7 +125,7 @@ request(pageToVisit, function (error, response, body) {
 	// parse member relative link
 	let memLink = $('.cell.item table tbody td:nth-of-type(1) a');
 	memLink.each(
-		function(index) {
+		function (index) {
 			let currentHref = $(this).attr('href');
 			let userNameRegResult = /\/member\/(.+)/.exec(currentHref);
 			let userName = userNameRegResult[1];
@@ -95,9 +138,9 @@ request(pageToVisit, function (error, response, body) {
 	);
 
 	// parse item information
-	let itemLink = $('.item_title a'); 
+	let itemLink = $('.item_title a');
 	itemLink.each(
-		function(index) {
+		function (index) {
 			let currentHref = $(this).attr('href');
 			let titleText = $(this).html();
 			let userName = userNameArr[index];
@@ -107,4 +150,7 @@ request(pageToVisit, function (error, response, body) {
 			dataCollector.appendItem(itemModel);
 		}
 	);
+
+	dataCollector.saveToUserCollection();
+	dataCollector.saveToItemCollection();
 });
